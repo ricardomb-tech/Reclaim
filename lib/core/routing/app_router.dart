@@ -35,7 +35,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
 });
 
 StatefulShellBranch _branch(String path, Widget page) => StatefulShellBranch(
-      routes: [GoRoute(path: path, builder: (_, __) => page)],
+      routes: [GoRoute(path: path, builder: (context, state) => page)],
     );
 
 class _Shell extends StatelessWidget {
