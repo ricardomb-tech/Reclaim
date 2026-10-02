@@ -28,12 +28,15 @@ class FocusController extends Notifier<FocusState> {
       status: FocusStatus.active,
       remaining: state.selected,
     );
-    await ref.read(appBlockerServiceProvider).startBlocking(state.selected);
+    // El timer se crea antes del await: si stop() ocurre mientras se espera
+    // al lado nativo, ya hay un _ticker que cancelar (evita un timer huérfano).
     _ticker = Timer.periodic(const Duration(seconds: 1), (_) => _tick());
+    await ref.read(appBlockerServiceProvider).startBlocking(state.selected);
   }
 
   Future<void> stop() async {
     _ticker?.cancel();
+    _ticker = null;
     state = state.copyWith(status: FocusStatus.idle, remaining: Duration.zero);
     await ref.read(appBlockerServiceProvider).stopBlocking();
   }
