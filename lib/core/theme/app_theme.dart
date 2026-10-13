@@ -30,10 +30,6 @@ abstract final class AppTheme {
         backgroundColor: AppColors.surface,
         indicatorColor: Color(0x337CC4A4),
       ),
-      textTheme: Typography.whiteMountainView.apply(
-        bodyColor: Colors.white,
-        displayColor: Colors.white,
-      ),
     );
   }
 }
